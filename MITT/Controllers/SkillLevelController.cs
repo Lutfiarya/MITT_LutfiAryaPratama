@@ -1,44 +1,43 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MITT.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MITT.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class SkillController : Controller
+    public class SkillLevelController : Controller
     {
         private MasterContext _context = new MasterContext();
         [HttpGet]
-        public List<Skill> GetAll()
+        public List<SkillLevel> GetAll()
         {
-            return _context.Skill.ToList();
+            return _context.SkillLevel.ToList();
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var skills = _context.Skill.FirstOrDefault(x => x.skillId == id);
+            var skillLevel = _context.SkillLevel.FirstOrDefault(x => x.skillLevelId == id);
 
-            if (skills == null)
+            if (skillLevel == null)
             {
                 return NotFound();
             }
 
-            return new ObjectResult(skills);
+            return new ObjectResult(skillLevel);
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Skill skill)
+        public IActionResult Create([FromBody] SkillLevel skillLevel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Skill.Add(skill);
+            _context.SkillLevel.Add(skillLevel);
             _context.SaveChanges();
 
             return View("success");
@@ -46,14 +45,14 @@ namespace MITT.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Skill skill)
+        public IActionResult Update(int id, [FromBody] SkillLevel skillLevel)
         {
-            if (skill.skillId != id)
+            if (skillLevel.skillLevelId != id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(skill).State = EntityState.Modified;
+            _context.Entry(skillLevel).State = EntityState.Modified;
             _context.SaveChanges();
             return Ok();
         }
@@ -61,16 +60,16 @@ namespace MITT.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var skill = _context.Skill.FirstOrDefault(x => x.skillId == id);
+            var s = _context.SkillLevel.FirstOrDefault(x => x.skillLevelId == id);
 
-            if (skill == null)
+            if (s == null)
             {
                 return NotFound();
             }
 
-            _context.Skill.Remove(skill);
+            _context.SkillLevel.Remove(s);
             _context.SaveChanges();
-            return Ok(skill);
+            return Ok(s);
         }
     }
 }

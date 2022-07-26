@@ -15,6 +15,7 @@ namespace MITT.Models
                 ["ConnectionStrings:DefaultConnection"]);
         }
 
-        public  DbSet<UserProfile> UserProfile { get; set; }
+        public DbSet<UserProfile> UserProfile { get; set; }
+        public DbSet<Skill> Skill { get; set; }
     }
 }

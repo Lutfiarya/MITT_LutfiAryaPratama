@@ -18,5 +18,6 @@ namespace MITT.Models
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<Skill> Skill { get; set; }
         public DbSet<SkillLevel> SkillLevel { get; set; }
+        public DbSet<UserSkill> UserSkill { get; set; }
     }
 }
